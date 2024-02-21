@@ -5,4 +5,4 @@ Before you start working, make sure you run `npm install` in the console so that
 
 Start gulp by just running `gulp` in the console. Start the code by running `dist/index.html` with Visual Studio Code's Web Server by right-clicking on the file and selecting `vscode-preview-server: Launch on Browser`. Anytime you save, gulp should recompile the code automatically.
 
-Setup follows [this helpful guide from TypeScript] (https://www.typescriptlang.org/docs/handbook/gulp.html) (Up through Watchify).
+Setup follows [this helpful guide from TypeScript] (https://www.typescriptlang.org/docs/handbook/gulp.html) (Up through Watchify).# HW-2-TheSpaceGame

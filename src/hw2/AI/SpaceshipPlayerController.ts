@@ -27,7 +27,7 @@ export default class SpaceshipPlayerController implements AI {
 	private receiver: Receiver;
 	private emitter: Emitter;
 
-	// HOMEWORK 2 - TODO
+	// 
 	/**
 	 * This method initializes all variables inside of this AI class, and sets
 	 * up anything we need it do.

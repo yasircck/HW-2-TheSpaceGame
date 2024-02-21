@@ -83,6 +83,7 @@ export default class Homework1_Scene extends Scene {
 		this.load.image("space", "hw2_assets/sprites/space.png");
 
 		/* ##### YOUR CODE GOES BELOW THIS LINE ##### */
+		this.load.spritesheet("Space_Ship", "hw2_assets/spritesheets/Space_Ship.json");
 	}
 
 	/*
@@ -490,6 +491,18 @@ export default class Homework1_Scene extends Scene {
 	 * The asteroid has a color field with type Color, a class that can be found in the Utils folder.
 	 * Check out that class to see how to create colors and access its fields.
 	 */
+	getRandomColor(): Color {
+		const colors = [
+			new Color(255, 0, 0),
+			new Color(0, 255, 0),
+			new Color(0, 0, 255),
+			new Color(255, 255, 0),
+			new Color(0, 255, 255),
+			new Color(255, 0, 255)
+		];
+	
+		return colors[Math.floor(Math.random() * colors.length)];
+	}
 	spawnAsteroid(): void {
 		// Find the first viable asteroid
 		let asteroid: Graphic = null;
@@ -535,7 +548,7 @@ export default class Homework1_Scene extends Scene {
 	 * 
 	 * Keep in mind while implementing this that JavaScript's % operator does a remainder operation,
 	 * not a modulus operation:
-	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder
+* https://developer.mozilla.org/en-US/docs/Web/JavaScri		pt/Reference/Operators/Remainder
 	 * 
 	 * Also keep in mind that the screenwrap in this case is padded, meaning that a GameNode can go off
 	 * the side of the viewport by the padding amount in any direction before it will wrap to the other side.
@@ -568,11 +581,25 @@ export default class Homework1_Scene extends Scene {
 	 * @param paddedViewportSize The size of the viewport with padding
 	 */
 	handleScreenWrap(node: GameNode, viewportCenter: Vec2, paddedViewportSize: Vec2): void {
-		// Your code goes here:
-
+		const rightBoundary = viewportCenter.x + paddedViewportSize.x / 2;
+		const leftBoundary = viewportCenter.x - paddedViewportSize.x / 2;
+		const topBoundary = viewportCenter.y + paddedViewportSize.y / 2;
+		const bottomBoundary = viewportCenter.y - paddedViewportSize.y / 2;
+	
+		if (node.position.x < leftBoundary) {
+			node.position.x = rightBoundary;
+		} else if (node.position.x > rightBoundary) {
+			node.position.x = leftBoundary;
+		}
+	
+		if (node.position.y < bottomBoundary) {
+			node.position.y = topBoundary;
+		} else if (node.position.y > topBoundary) {
+			node.position.y = bottomBoundary;
+		}
 	}
 
-	// HOMEWORK 2 - TODO
+	// 
 	/**
 	 * This method checks whether or not an AABB collision shape and a Circle collision shape
 	 * overlap with each other.
@@ -598,8 +625,23 @@ export default class Homework1_Scene extends Scene {
 	 * @returns True if the two shapes overlap, false if they do not
 	 */
 	static checkAABBtoCircleCollision(aabb: AABB, circle: Circle): boolean {
-		// Your code goes here:
-		return false;
+		// Check if the circle's center is inside the AABB
+		if (circle.x >= aabb.x && circle.x <= aabb.x + aabb.hw &&
+			circle.y >= aabb.y && circle.y <= aabb.y + aabb.hh) {
+			return true;
+		}
+	
+		// Calculate the distance from the circle's center to the closest point on the AABB
+		let closestX = Math.max(aabb.x, Math.min(circle.x, aabb.x + aabb.hw));
+		let closestY = Math.max(aabb.y, Math.min(circle.y, aabb.y + aabb.hh));
+		let distanceX = circle.x - closestX;
+		let distanceY = circle.y - closestY;
+	
+		// Calculate the distance from the closest point to the circle's center
+		let distanceSquared = distanceX * distanceX + distanceY * distanceY;
+	
+		// Check if the distance is less than or equal to the circle's radius
+		return distanceSquared <= circle.radius * circle.radius;
 	}
 
 }

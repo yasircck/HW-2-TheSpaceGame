@@ -31,5 +31,5 @@ export enum Homework2Animations {
  * Make sure this is the key you give to your loaded spritesheet.
  */
 export enum Homework2Names {
-	FLEET_SHIP = "player"
+	FLEET_SHIP = "Space_Ship"
 }

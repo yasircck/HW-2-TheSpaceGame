@@ -3,6 +3,7 @@ import Mat4x4 from "../Wolfie2D/DataTypes/Mat4x4";
 import Vec2 from "../Wolfie2D/DataTypes/Vec2";
 import Rect from "../Wolfie2D/Nodes/Graphics/Rect";
 import RectShaderType from "../Wolfie2D/Rendering/WebGLRendering/ShaderTypes/RectShaderType";
+import Color from "../Wolfie2D/Utils/Color";
 
 /**
  * The gradient circle is technically rendered on a quad, and is similar to a rect, so we'll extend the RectShaderType
@@ -82,11 +83,12 @@ export default class GradientCircleShaderType extends RectShaderType {
 	 * This method decides what options get passed to the above render() method.
 	 * You should modify this class to allow you to change the color of the GradientCircles
 	 */
-	getOptions(gc: Rect): Record<string, any> {
+	getOptions(gc: Rect):Record<string, any> {
 		let options: Record<string, any> = {
 			position: gc.position,
 			size: gc.size,
 			rotation: gc.rotation
+			
 		}
 
 		return options;
